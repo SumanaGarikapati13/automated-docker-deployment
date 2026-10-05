@@ -40,7 +40,7 @@ def home():
     <body>
         <div class="container">
             <h1>Automated Docker Deployment</h1>
-            <p class="status">Application is running successfully!</p>
+            <p class="status">version : Application is running successfully!</p>
             <p>Deployed using Docker and DevOps CI/CD.</p>
         </div>
     </body>

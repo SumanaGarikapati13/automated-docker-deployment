@@ -1,4 +1,4 @@
-name: Docker CI/CD
+name: Automated Docker Container Deployment
 
 on:
   push:
@@ -6,15 +6,21 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: self-hosted
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Stop existing container
+        run: docker stop automated-docker-container || exit 0
+
+      - name: Remove existing container
+        run: docker rm automated-docker-container || exit 0
 
       - name: Build Docker image
         run: docker build -t automated-docker-app .
+
+      - name: Run new container
+        run: docker run -d -p 5000:5000 --name automated-docker-container automated-docker-app
